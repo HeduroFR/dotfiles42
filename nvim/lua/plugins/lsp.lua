@@ -11,7 +11,18 @@ return {
 			require("mason").setup()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			vim.lsp.config("*", { capabilities = capabilities })
-			vim.lsp.config("clangd", { capabilities = capabilities })
+			vim.lsp.config("clangd", {
+				capabilities = capabilities,
+				cmd = {
+					"clangd",
+					"--fallback-style=llvm",
+					"--header-insertion=never",
+				},
+				init_options = {
+					clangdFileStatus = true,
+					fallbackFlags = { "-xc" },
+				},
+			})
 			vim.lsp.config("pyright", { capabilities = capabilities })
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)

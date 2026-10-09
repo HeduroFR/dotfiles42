@@ -1,14 +1,9 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  lazy = false,
+  event = { "BufReadPost", "BufNewFile" },
   build = ":TSUpdate",
   config = function()
     require("nvim-treesitter").setup({})
-
-			require("nvim-treesitter").install({
-      "c",
-      "python",
-    })
 
 			vim.api.nvim_create_autocmd("FileType", {
       pattern = {
